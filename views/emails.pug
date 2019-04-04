@@ -1,0 +1,17 @@
+extends layout
+block content
+
+  label= info
+  h1 Autenticação
+  .w3-container
+    table.w3-table-all
+      tr
+          th(style='width:20%') Assunto
+          th(style='width:15%') Data
+          th(style='width:65%') Corpo
+      each m in emails
+          tr
+            td= m.mails.subject
+            td= m.mails.data
+            td= m.mails.body
+

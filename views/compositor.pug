@@ -1,12 +1,31 @@
 extends layout
 block content
 
-  label= info
-  h1 Autenticação
+  .w3-container.w3-teal
+    h5 Username:
+    label= info
   .w3-container
-    form.w3container(id="myForm" action="/enviaEmail" method="POST")
-      input.w3-input(type='email' name='email' placeholder='exemplo@teste.com' required)
-      input.w3-input(type='text' name='assunto' placeholder='Assunto' required)
+    form.w3container(id="logoutForm" action="/servicoemail/logout" method="POST")
+        input.w3-input.w3-border-w3.light-grey(type='hidden' id='mail' name='mail' value= mail)
+        input.w3-input.w3-border-w3.light-grey(type='hidden' id='token' name='token' value= token)
+        input.w3-btn.w3-blue-grey(type="submit" value="Logout!")
+
+  h3 Enviar email
+  .w3-container
+    form.w3container(id="myForm" action="/servicoemail/enviaEmail" method="POST")
+      input.w3-input.w3-border-w3.light-grey(type='email' name='email' placeholder='exemplo@teste.com' required)
+      input.w3-input.w3-border-w3.light-grey(type='text' name='assunto' placeholder='Assunto' required)
       textarea.w3-input.w3-border.w3-light-grey(name='texto' id='texto' rows='3' cols='80')
-      input.w3-input(type='hidden' id='from' name='from' value= info)
-      input.w3-btn(type="submit" value="Enviar!")
+      input.w3-input.w3-border-w3.light-grey(type='hidden' id='from' name='from' value= info)
+      input.w3-btn.w3-blue-grey(type="submit" value="Enviar!")
+
+  .w3-container
+    if recetor
+      table.w3-table-all
+        tr
+            th Emails enviados para:
+        each autor in recetor
+            tr
+              td 
+                a(href='http://localhost:80/servicoemail/' + autor + '?uti=' + info)= autor
+
